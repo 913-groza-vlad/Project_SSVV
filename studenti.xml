@@ -16,4 +16,8 @@
         <Nume>Vlad</Nume>
         <Grupa>933</Grupa>
     </student>
+    <student ID="10">
+        <Nume>Andrei</Nume>
+        <Grupa>935</Grupa>
+    </student>
 </Entitati>
