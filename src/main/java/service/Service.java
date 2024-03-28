@@ -2,6 +2,7 @@ package service;
 
 import domain.*;
 import repository.*;
+import validation.Validator;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -11,11 +12,13 @@ public class Service {
     private StudentXMLRepository studentXmlRepo;
     private TemaXMLRepository temaXmlRepo;
     private NotaXMLRepository notaXmlRepo;
+    private Validator<Student> studentValidator;
 
-    public Service(StudentXMLRepository studentXmlRepo, TemaXMLRepository temaXmlRepo, NotaXMLRepository notaXmlRepo) {
+    public Service(StudentXMLRepository studentXmlRepo, TemaXMLRepository temaXmlRepo, NotaXMLRepository notaXmlRepo, Validator<Student> studentValidator) {
         this.studentXmlRepo = studentXmlRepo;
         this.temaXmlRepo = temaXmlRepo;
         this.notaXmlRepo = notaXmlRepo;
+        this.studentValidator = studentValidator;
     }
 
     public Iterable<Student> findAllStudents() { return studentXmlRepo.findAll(); }
@@ -26,6 +29,7 @@ public class Service {
 
     public int saveStudent(String id, String nume, int grupa) {
         Student student = new Student(id, nume, grupa);
+        studentValidator.validate(student);
         Student result = studentXmlRepo.save(student);
 
         if (result == null) {

@@ -29,7 +29,7 @@ public class App
         TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "teme.xml");
         NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "note.xml");
 
-        Service service = new Service(fileRepository1, fileRepository2, fileRepository3);
+        Service service = new Service(fileRepository1, fileRepository2, fileRepository3, studentValidator);
         UI consola = new UI(service);
         consola.run();
 
