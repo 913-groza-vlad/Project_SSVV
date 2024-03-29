@@ -26,7 +26,7 @@ public class AppTest
     Validator<Nota> notaValidator = new NotaValidator();
 
     StudentXMLRepository fileRepository1 = new StudentXMLRepository(studentValidator, "studenti_test.xml");
-    TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "teme.xml");
+    TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "teme_test.xml");
     NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "note.xml");
 
     Service service = new Service(fileRepository1, fileRepository2, fileRepository3, studentValidator);
