@@ -132,4 +132,15 @@ public class AppTest
         assertEquals(0, result);
         service.deleteStudent("13");
     }
+
+    public void testAddAssignment1() {
+        int result = service.saveTema("1", "Lab3", 4, 2);
+        assertEquals(1, result);
+
+        service.deleteTema("1");
+    }
+
+    public void testAddAssignment2() {
+        assertThrows(ValidationException.class, () -> this.service.saveTema("2", "Lab4", 5, 7));
+    }
 }
