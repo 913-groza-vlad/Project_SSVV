@@ -29,7 +29,7 @@ public class AppTest
     TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "teme_test.xml");
     NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "note.xml");
 
-    Service service = new Service(fileRepository1, fileRepository2, fileRepository3, studentValidator);
+    Service service = new Service(fileRepository1, fileRepository2, fileRepository3, studentValidator, temaValidator);
 
     /**
      * Create the test case
@@ -142,5 +142,95 @@ public class AppTest
 
     public void testAddAssignment2() {
         assertThrows(ValidationException.class, () -> this.service.saveTema("2", "Lab4", 5, 7));
+    }
+
+    public void testAddAssignment3() {
+        try {
+            service.saveTema("", "Lab3", 4, 2);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("ID invalid! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment4() {
+        try {
+            service.saveTema(null, "Lab3", 4, 2);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("ID invalid! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment5() {
+        try {
+            service.saveTema("4", "", 4, 2);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("Descriere invalida! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment6() {
+        try {
+            service.saveTema("4", null, 4, 2);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("Descriere invalida! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment7() {
+        try {
+            service.saveTema("4", "Lab3", 0, 2);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("Deadline invalid! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment8() {
+        try {
+            service.saveTema("4", "Lab3", 15, 2);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("Deadline invalid! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment9() {
+        try {
+            service.saveTema("4", "Lab3", 4, 0);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("Data de primire invalida! \n", ve.getMessage());
+            assert true;
+        }
+    }
+
+    public void testAddAssignment10() {
+        assertThrows(ValidationException.class, () -> this.service.saveTema("4", "Lab3", 5, 15));
+    }
+
+
+    public void testAddAssignment11() {
+        int result = service.saveTema("10", "Lab3", 4, 2);
+        assertEquals(1, result);
+        result = service.saveTema("10", "Lab3", 10, 7);
+        assertEquals(0, result);
+        service.deleteTema("10");
     }
 }
