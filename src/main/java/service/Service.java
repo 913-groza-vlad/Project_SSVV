@@ -13,12 +13,14 @@ public class Service {
     private TemaXMLRepository temaXmlRepo;
     private NotaXMLRepository notaXmlRepo;
     private Validator<Student> studentValidator;
+    private Validator<Tema> temaValidator;
 
-    public Service(StudentXMLRepository studentXmlRepo, TemaXMLRepository temaXmlRepo, NotaXMLRepository notaXmlRepo, Validator<Student> studentValidator) {
+    public Service(StudentXMLRepository studentXmlRepo, TemaXMLRepository temaXmlRepo, NotaXMLRepository notaXmlRepo, Validator<Student> studentValidator, Validator<Tema> temaValidator) {
         this.studentXmlRepo = studentXmlRepo;
         this.temaXmlRepo = temaXmlRepo;
         this.notaXmlRepo = notaXmlRepo;
         this.studentValidator = studentValidator;
+        this.temaValidator = temaValidator;
     }
 
     public Iterable<Student> findAllStudents() { return studentXmlRepo.findAll(); }
@@ -40,6 +42,7 @@ public class Service {
 
     public int saveTema(String id, String descriere, int deadline, int startline) {
         Tema tema = new Tema(id, descriere, deadline, startline);
+        temaValidator.validate(tema);
         Tema result = temaXmlRepo.save(tema);
 
         if (result == null) {
