@@ -52,6 +52,7 @@ public class GradeTest extends TestCase {
     public void test1() {
         int result = service.saveStudent("1", "Vlad", 933);
         assertEquals(1, result);
+
         service.deleteStudent("1");
     }
 
@@ -63,7 +64,7 @@ public class GradeTest extends TestCase {
     }
 
     public void test3() {
-        int result = service.saveNota("5", "3", 10, 4, "Good job!");
+        int result = service.saveNota("1", "1", 10, 4, "Good job!");
         assertEquals(-1, result);
     }
 
