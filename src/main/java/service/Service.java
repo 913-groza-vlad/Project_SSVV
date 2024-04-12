@@ -138,4 +138,12 @@ public class Service {
 
         notaXmlRepo.createFile(nota);
     }
+
+    public void deleteNota(Pair pair) {
+        Nota result = notaXmlRepo.delete(pair);
+
+        if (result == null) {
+            return;
+        }
+    }
 }

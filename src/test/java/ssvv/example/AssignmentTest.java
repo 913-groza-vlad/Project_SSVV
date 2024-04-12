@@ -23,7 +23,7 @@ public class AssignmentTest extends TestCase {
     TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "teme_test.xml");
     NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "note.xml");
 
-    Service service = new Service(fileRepository1, fileRepository2, fileRepository3, studentValidator);
+    Service service = new Service(fileRepository1, fileRepository2, fileRepository3, studentValidator, temaValidator);
 
     /**
      * Create the test case
@@ -40,7 +40,7 @@ public class AssignmentTest extends TestCase {
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( AssignmentTest.class );
     }
 
     /**
