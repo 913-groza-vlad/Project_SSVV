@@ -146,4 +146,8 @@ public class Service {
             return;
         }
     }
+
+    public Nota getNota(String idStudent, String idTema) {
+        return notaXmlRepo.findOne(new Pair(idStudent, idTema));
+    }
 }

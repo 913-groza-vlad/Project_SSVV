@@ -11,10 +11,7 @@ import repository.NotaXMLRepository;
 import repository.StudentXMLRepository;
 import repository.TemaXMLRepository;
 import service.Service;
-import validation.NotaValidator;
-import validation.StudentValidator;
-import validation.TemaValidator;
-import validation.Validator;
+import validation.*;
 
 public class GradeTest extends TestCase {
     Validator<Student> studentValidator = new StudentValidator();
@@ -79,5 +76,48 @@ public class GradeTest extends TestCase {
         service.deleteTema("1");
         service.deleteStudent("1");
         service.deleteNota(new Pair("1", "1"));
+    }
+
+    public void testAddStudent() {
+        try {
+            service.saveStudent("", "Vlad", 933);
+            assert false;
+        }
+        catch (Exception e) {
+            assertEquals(e.getMessage(), "ID invalid! \n");
+            assert true;
+        }
+    }
+
+    public void testAddStudentAssignment() {
+        int result = service.saveStudent("5", "Dan", 933);
+        assertEquals(1, result);
+
+        try {
+            service.saveTema("2", "Lab4", 2, 4);
+            assert false;
+        }
+        catch (ValidationException ve) {
+            assertEquals("Deadline invalid! \n", ve.getMessage());
+            assert true;
+        }
+
+        service.deleteStudent("5");
+    }
+
+    public void testAddStudentAssignmentGrade() {
+        int result = service.saveStudent("5", "Dan", 933);
+        assertEquals(1, result);
+
+        int result2 = service.saveTema("4", "Lab4", 8, 6);
+        assertEquals(1, result2);
+
+        int result3 = service.saveNota("5", "4", 10, 9, "Good job!");
+        assertEquals(1, result3);
+        assertEquals(7.5, service.getNota("5", "4").getNota());
+
+        service.deleteStudent("5");
+        service.deleteTema("4");
+        service.deleteNota(new Pair("5", "4"));
     }
 }
